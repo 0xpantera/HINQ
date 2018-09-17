@@ -100,4 +100,33 @@ maybeQuery1 = HINQ (_select (teacherName . fst))
                                           teacherId teacher)
                     (_where ((== "French") . courseTitle . snd))
 
-   
+
+studentEnrollmentsQ = HINQ_ (_select (\(st,en) ->
+                                       (studentName st, course en)))
+                              (_join students enrollments studentId student)
+
+
+studentEnrollments :: [(Name, Int)]
+studentEnrollments = runHINQ studentEnrollmentsQ
+
+englishStudentsQ = HINQ (_select (fst . fst))
+                         (_join studentEnrollments
+                                courses
+                                snd
+                                courseId)
+                         (_where ((== "English") . courseTitle . snd))
+
+englishStudents :: [Name]
+englishStudents = runHINQ englishStudentsQ
+
+
+getEnrollments :: String -> [Name]
+getEnrollments courseName = runHINQ courseQuery
+  where courseQuery = HINQ (_select (fst . fst))
+                           (_join studentEnrollments
+                                  courses
+                                  snd
+                                  courseId)
+                           (_where ((== courseName) . courseTitle . snd))
+
+                      
