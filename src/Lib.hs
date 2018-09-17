@@ -3,6 +3,7 @@ module Lib
     ) where
 
 import Lib.Types
+import Control.Monad
 
 someFunc :: IO ()
 someFunc = putStrLn "someFunc"
@@ -21,4 +22,11 @@ _select prop vals = do
   return (prop val)
 
 
-  
+_where :: (a -> Bool) -> [a] -> [a]
+_where test vals = do
+  val <- vals
+  guard (test val)
+  return val
+
+startsWith :: Char -> String -> Bool
+startsWith char string = char == (head string)
