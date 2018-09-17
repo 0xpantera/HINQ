@@ -26,7 +26,17 @@ courses :: [Course]
 courses = [Course 101 "French" 100
            ,Course 201 "English" 200]
 
-          
+
+enrollments :: [Enrollment]
+enrollments = [(Enrollment 1 101)
+               ,(Enrollment 2 101)
+               ,(Enrollment 2 201)
+               ,(Enrollment 3 101)
+               ,(Enrollment 4 201)
+               ,(Enrollment 4 101)
+               ,(Enrollment 5 101)
+               ,(Enrollment 6 201)]
+ 
 
 _select :: Monad m => (a -> b) -> m a -> m b
 _select prop vals = do
@@ -84,10 +94,10 @@ possibleTeacher = Just (head teachers)
 possibleCourse :: Maybe Course
 possibleCourse = Just (head courses)
 
-maybeQuery1 :: HINQ Maybe (Teacher,Coures) Name
+maybeQuery1 :: HINQ Maybe (Teacher,Course) Name
 maybeQuery1 = HINQ (_select (teacherName . fst))
-                    (_join posibleTeacher possibleCourse
+                    (_join possibleTeacher possibleCourse
                                           teacherId teacher)
-                    (_where ((== "French" . courseTitle . snd))
+                    (_where ((== "French") . courseTitle . snd))
 
-                    
+   

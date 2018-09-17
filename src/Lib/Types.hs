@@ -30,5 +30,11 @@ data Course = Course
   , teacher :: Int } deriving Show
 
 
+data Enrollment = Enrollment
+  { student :: Int
+  , course :: Int } deriving Show
+
+
 data HINQ m a b = HINQ (m a -> m b) (m a) (m a -> m a)
                 | HINQ_ (m a -> m b) (m a)
+
