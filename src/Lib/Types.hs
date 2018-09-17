@@ -29,3 +29,6 @@ data Course = Course
   , courseTitle :: String
   , teacher :: Int } deriving Show
 
+
+data HINQ m a b = HINQ (m a -> m b) (m a) (m a -> m a)
+                | HINQ_ (m a -> m b) (m a)

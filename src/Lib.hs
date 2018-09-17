@@ -60,5 +60,12 @@ finalResult = _hinq (_select (teacherName . fst))
                      (_join teachers courses teacherId teacher)
                      (_where ((== "English") . courseTitle . snd))
 
+
+runHINQ :: (Monad m, Alternative m) => HINQ m a b -> m b
+runHINQ (HINQ sClause jClause wClause) = _hinq sClause jClause wClause
+runHINQ (HINQ_ sClause jClause) = _hinq sClause jClause
+                                                (_where (\_ -> True))
+                                                
+
 startsWith :: Char -> String -> Bool
 startsWith char string = char == (head string)
