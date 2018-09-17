@@ -48,5 +48,16 @@ _join data1 data2 prop1 prop2 = do
   guard ((prop1 (fst dpairs)) == (prop2 (snd dpairs)))
   return dpairs
 
+
+_hinq selectQuery joinQuery whereQuery = (\joinData ->
+                                            (\whereResult ->
+                                               selectQuery whereResult)
+                                            (whereQuery joinData)) joinQuery
+
+finalResult :: [Name]
+finalResult = _hinq (_select (teacherName . fst))
+                     (_join teachers courses teacherId teacher)
+                     (_where ((== "English") . courseTitle . snd))
+
 startsWith :: Char -> String -> Bool
 startsWith char string = char == (head string)
