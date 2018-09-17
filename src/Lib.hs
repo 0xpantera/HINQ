@@ -41,7 +41,7 @@ _where test vals = do
   return val
 
 
-_join :: (Monad m, Alternative m, Eq c) => m a -> m a -> (a -> c) -> (b -> c) -> m (a,b)
+_join :: (Monad m, Alternative m, Eq c) => m a -> m b -> (a -> c) -> (b -> c) -> m (a,b)
 _join data1 data2 prop1 prop2 = do
   d1 <- data1
   d2 <- data2
