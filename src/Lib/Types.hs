@@ -18,3 +18,14 @@ data Student = Student
   { studentId :: Int
   , gradeLevel :: GradeLevel
   , studentName :: Name } deriving Show
+
+
+data Teacher = Teacher
+  { teacherId :: Int
+  , teacherName :: Name } deriving Show
+
+data Course = Course
+  { courseId :: Int
+  , courseTitle :: String
+  , teacher :: Int } deriving Show
+
