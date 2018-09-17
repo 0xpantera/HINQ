@@ -78,3 +78,16 @@ query2 :: HINQ [] Teacher Name
 query2 = HINQ_ (_select teacherName)
                 teachers
          
+possibleTeacher :: Maybe Teacher
+possibleTeacher = Just (head teachers)
+
+possibleCourse :: Maybe Course
+possibleCourse = Just (head courses)
+
+maybeQuery1 :: HINQ Maybe (Teacher,Coures) Name
+maybeQuery1 = HINQ (_select (teacherName . fst))
+                    (_join posibleTeacher possibleCourse
+                                          teacherId teacher)
+                    (_where ((== "French" . courseTitle . snd))
+
+                    
